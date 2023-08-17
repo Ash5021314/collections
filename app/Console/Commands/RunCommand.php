@@ -28,6 +28,7 @@ class RunCommand extends Command
     public function handle()
     {
         $numberCollections = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        $numberCollections2 = collect([ 5, 6, 7, 8, 9, 10]);
         $anotherNumberCollections = collect([10, 20, 30, 245, 40, 50, 69]);
         $assocWorkerCollection = collect([
             [
@@ -41,9 +42,13 @@ class RunCommand extends Command
             [
                 'name' => 'Elena',
                 'age' => 18
+            ],
+            [
+                'name' => 'Ivan',
+                'age' => 18
             ]
         ]);
-        $nameCollection = collect(['Ivan', 'Boris', 'Kate']);
+        $nameCollection = collect(['Ivan', 'Boris', 'Kate', 'Kate']);
         $nameCollection2 = collect([20, 22, 18]);
         $anotherNameCollection = collect(['Ann', 'John']);
 
@@ -90,7 +95,36 @@ class RunCommand extends Command
 
 //----------------containsStrict--------------------
 
-        $resoult = $numberCollections->containsStrict('10');
+//        $resoult = $numberCollections->containsStrict('10');
+
+
+//----------------count--------------------
+
+//        $resoult = $numberCollections->count();
+
+
+//----------------countBY--------------------
+
+//        $resoult = $anotherNumberCollections->countBY(function ($value){
+//            return $value % 10 === 0;
+//        });
+
+//----------------crossJoin--------------------
+
+//        $resoult = $nameCollection->crossJoin($anotherNameCollection);
+
+//----------------dd--------------------
+
+//        $resoult = $nameCollection->dd();
+
+//----------------diff--------------------
+
+//        $resoult = $numberCollections2->diff($numberCollections);
+
+//----------------duplicates--------------------
+
+//        $resoult = $nameCollection->duplicates();
+//        $resoult = $assocWorkerCollection->duplicates('name');
 
 
 //----------------each--------------------
@@ -115,6 +149,13 @@ class RunCommand extends Command
 //        contains - Մեթոդ է, որը ստուգում է առկա է արդյոք նշված զանգվածի մեջ մեր կողմից փոխանցած ատրիբուտը, հաշվի առնելով մեծատառերն ու փոքրատառերը,կարող ենք փոխանցել callback function և կատարել տարատեսակ գործողություններ տարբեր պայմաններով հակառակն է անում doesntContain
 //        containsOneItem() - Մեթոդ է, որը ստուգում է առկա է արդյոք նշված զանգվածի մեջ մեկ էլէմենտ, եթե այո վերադարձնում է true, եթե ոչ վերադարձնում է false
 //        containsStrict - Մեթոդ է, որը ստուգում է առկա է արդյոք նշված զանգվածի մեջ մեր կողմից փոխանցած ատրիբուտը, բայց ստուգելով որպես ղիստ հավասարություն
-
+//        count() - Մեթոդ է, որը վերադարձնում է զանգվածի էլէմենտների քանակը
+//        countBy() - Մեթոդ է, որը վերադարձնում է զանգվածի էլէմենտների քանակը մեկ այլ զանգվածի մեջ։ callback ֆւնկցիայի մեյ կարող ենք տալ պայման ու մեթոդը կվերադարդզնի քանակությունը ըստ պայմանի
+//        crossJoin() - Մեթոդ է, որը վերադարձնում է զանգվածներ, որի ելեմենտները ղաչաձև միանում են իրի, օրինակ աային զանգվածի առաջին էլեմենտը միանում է երկրորրդ զանգվածի առային ելեմենտին, հետո առաջին զանգվախի աաջին ելեմենտը միանում է երկրորրդ զանգվածի երկրորդ էլեմենտին և այդպես շարունակ
+//        dd() - Մեթոդ է, որը վերադարձնում է զանգված, ի տարբերություն միւս dd() մեթոդի, այն ցույց է տալիս առանց collection -Ի
+//        diff() - Մեթոդ է, որը վերադարձնում է զանգված,որի մեջ տարբերությունն է առաջին և երկրրորդ զանգվածների, օրինակ եթե մի էլեմենտ կա առաջին զանգվածում, բայց չկա երկրրորդում, դա զույզ կտա զանգվածի մեջ
+//        diffAssoc() - Նույն բաննէ անում ինչ diff() մեթոդը, բայց ասոցատիվ զանգվածի հետ
+//        duplicates() - Մեթոդ է, որը վերադարձնում է ասոցատիվ զանգված, որի key-ը կրկնվող էլէմոենտի ինդեղն է , իսկ value -ն կրկնվող էլէմենտը
+//        duplicatesStrict() -  Նույն բաննէ անում ինչ duplicates() մեթոդը, բայց խիստ հավասարությունով
     }
 }
