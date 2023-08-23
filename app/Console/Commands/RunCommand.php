@@ -28,7 +28,7 @@ class RunCommand extends Command
     public function handle()
     {
         $numberCollections = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-        $numberCollections2 = collect([ 5, 6, 7, 8, 9, 10]);
+        $numberCollections2 = collect([5, 6, 7, 8, 9, 10]);
         $anotherNumberCollections = collect([10, 20, 30, 245, 40, 50, 69]);
         $assocWorkerCollection = collect([
             [
@@ -46,6 +46,24 @@ class RunCommand extends Command
             [
                 'name' => 'Ivan',
                 'age' => 18
+            ]
+        ]);
+        $arrayWorkerCollection = collect([
+            [
+                'Boris',
+                20
+            ],
+            [
+                'Ivan',
+                25
+            ],
+            [
+                'Elena',
+                18
+            ],
+            [
+                'Ivan',
+                18
             ]
         ]);
         $nameCollection = collect(['Ivan', 'Boris', 'Kate', 'Kate']);
@@ -134,7 +152,13 @@ class RunCommand extends Command
 //            $map[] = $user->name;
 //        });
 
-//
+//----------------eachSpread--------------------
+
+$resoult = $arrayWorkerCollection->eachSpread(function ($name,$age){
+    dd($name,$age);
+});
+
+
         dd($resoult);
 //        dd(memory_get_usage() /1024 /1024);
 //        $users = User::all();
@@ -157,5 +181,7 @@ class RunCommand extends Command
 //        diffAssoc() - Նույն բաննէ անում ինչ diff() մեթոդը, բայց ասոցատիվ զանգվածի հետ
 //        duplicates() - Մեթոդ է, որը վերադարձնում է ասոցատիվ զանգված, որի key-ը կրկնվող էլէմոենտի ինդեղն է , իսկ value -ն կրկնվող էլէմենտը
 //        duplicatesStrict() -  Նույն բաննէ անում ինչ duplicates() մեթոդը, բայց խիստ հավասարությունով
+//        eachSpread() -  Մեթոդ է, որը զանգվածի միջի էլեմենտնեը վերադարձնում է առանին առանձին
+
     }
 }
