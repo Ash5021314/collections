@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use function GuzzleHttp\Promise\all;
 
 class RunCommand extends Command
@@ -48,6 +50,24 @@ class RunCommand extends Command
                 'age' => 18
             ]
         ]);
+        $assocWorkerCollection2 = collect([
+            [
+                'name' => 'Boris_old',
+                'age' => 20
+            ],
+            [
+                'name' => 'Ivan_old',
+                'age' => 25
+            ],
+            [
+                'name' => 'Elena_old',
+                'age' => 18
+            ],
+            [
+                'name' => 'Ivan_new',
+                'age' => 18
+            ]
+        ]);
         $arrayWorkerCollection = collect([
             [
                 'Boris',
@@ -66,10 +86,11 @@ class RunCommand extends Command
                 18
             ]
         ]);
-        $nameCollection = collect(['Ivan', 'Boris', 'Kate', 'Kate']);
+        $nameCollection = collect(['Ivan', 'Boris']);
+        $nameCollections = collect(['Ivan', 'Boris', 'Kate', 'Katerina', "Ashot"]);
         $nameCollection2 = collect([20, 22, 18]);
         $anotherNameCollection = collect(['Ann', 'John']);
-        $anotherNameCollection2 = collect(['Ann'=>'boss', 'John'=>'developer']);
+        $anotherNameCollection2 = collect(['Ann' => 'boss', 'John' => 'developer']);
 
 //----------------avg--------------------
 
@@ -182,7 +203,101 @@ class RunCommand extends Command
 
 //----------------firstOrFail--------------------
 
-$resoult = $assocWorkerCollection->firstWhere('name','aaa');
+//$resoult = $assocWorkerCollection->firstWhere('name','aaa');
+
+
+//----------------flatMap--------------------
+
+//        $resoult = $assocWorkerCollection->flatMap(function ($values) {
+//            return [
+//                ['new_name' => $values['name'],
+//                    'new_age' => $values['age'],
+//                ]
+//            ];
+//        });
+
+//----------------flatten--------------------
+
+//        $resoult = $arrayWorkerCollection->flatten(1);
+
+
+//----------------flip--------------------
+
+//        $resoult = $anotherNameCollection2->flip();
+
+
+//----------------forget--------------------
+
+//        $resoult = $anotherNameCollection2->forget('Ann');
+
+
+//----------------forPage--------------------
+
+//        $resoult = $numberCollections->forPage(3,4);
+
+
+//----------------get--------------------
+
+//        $resoult = $anotherNameCollection2->get("Ann");
+
+
+//----------------groupBy--------------------
+
+//        $resoult = $assocWorkerCollection2->groupBy(function ( $value,$key){
+//            return substr($value['name'],-3);
+//        });
+
+//----------------has--------------------
+
+//        $resoult = $anotherNameCollection2->has('boss');
+
+
+//----------------hasAny--------------------
+
+//        $resoult = $anotherNameCollection2->hasAny(['Ann','Ashot']);
+
+
+//----------------implode--------------------
+
+//        $resoult = $assocWorkerCollection->implode('name', ';');
+
+
+//----------------intersect--------------------
+
+//        $resoult = $nameCollection->intersect($nameCollections);
+
+
+//----------------isEmpty--------------------
+
+//        $resoult = $nameCollection->isEmpty();
+
+
+//----------------join--------------------
+
+//        $resoult = $nameCollections->join(',',' AND ');
+
+
+//----------------keyBy--------------------
+
+//        $resoult = $assocWorkerCollection->keyBy('name');
+
+
+
+//----------------keys--------------------
+
+//        $resoult = $anotherNameCollection2->keys();
+
+
+
+//----------------macro--------------------
+
+//        Collection::macro('toUpper',function (){
+//            return $this->map(function ($value){
+//                return Str::upper($value);
+//            });
+//        });
+//
+//        $resoult = $nameCollections->toUpper();
 
 
         dd($resoult);
@@ -203,7 +318,7 @@ $resoult = $assocWorkerCollection->firstWhere('name','aaa');
 //        countBy() - Մեթոդ է, որը վերադարձնում է զանգվածի էլէմենտների քանակը մեկ այլ զանգվածի մեջ։ callback ֆւնկցիայի մեյ կարող ենք տալ պայման ու մեթոդը կվերադարդզնի քանակությունը ըստ պայմանի
 //        crossJoin() - Մեթոդ է, որը վերադարձնում է զանգվածներ, որի ելեմենտները ղաչաձև միանում են իրի, օրինակ աային զանգվածի առաջին էլեմենտը միանում է երկրորրդ զանգվածի առային ելեմենտին, հետո առաջին զանգվախի աաջին ելեմենտը միանում է երկրորրդ զանգվածի երկրորդ էլեմենտին և այդպես շարունակ
 //        dd() - Մեթոդ է, որը վերադարձնում է զանգված, ի տարբերություն միւս dd() մեթոդի, այն ցույց է տալիս առանց collection -Ի
-//        diff() - Մեթոդ է, որը վերադարձնում է զանգված,որի մեջ տարբերությունն է առաջին և երկրրորդ զանգվածների, օրինակ եթե մի էլեմենտ կա առաջին զանգվածում, բայց չկա երկրրորդում, դա զույզ կտա զանգվածի մեջ
+//        diff() - Մեթոդ է, որը վերադարձնում է զանգված,որի մեջ տարբերությունն է առաջին և երկրրորդ զանգվածների, օրինակ եթե մի էլեմենտ կա առաջին զանգվածում, բայց չկա երկրրորդում, դա ցույց կտա զանգվածի մեջ
 //        diffAssoc() - Նույն բաննէ անում ինչ diff() մեթոդը, բայց ասոցատիվ զանգվածի հետ
 //        duplicates() - Մեթոդ է, որը վերադարձնում է ասոցատիվ զանգված, որի key-ը կրկնվող էլէմոենտի ինդեղն է , իսկ value -ն կրկնվող էլէմենտը
 //        duplicatesStrict() -  Նույն բաննէ անում ինչ duplicates() մեթոդը, բայց խիստ հավասարությունով
@@ -213,6 +328,24 @@ $resoult = $assocWorkerCollection->firstWhere('name','aaa');
 //        first() -  Մեթոդ է, որը վերադարձնում է զանգվածի առաջին էլեմենտը, կարող ենք փոխանցել callback function, որը կվերադարձնի պայմանին բավարարող էլեմենտներից առաջինը
 //        firstOrFail() -  Մեթոդ է, որը վերադարձնում է զանգվածի առաջին էլեմենտը, եթե չի գտնում՝ վերադարձնում է exception երրոր, որը կարող ենք օգտագործել try catch -ի մեջ
 //        firstWhere() -  Մեթոդ է, որը վերադարձնում է ասոցատիվ զանգվածի առաջին էլեմենտը, որը նշում ենք վօրպես արգումենտ key-ը և value-ն, եթե չի գտնում՝ վերադարձնում է null
-
+//        flatMap() -  Մեթոդ է, որը վերադարձնում է ասոցատիվ զանգված, որի էլեմենտների հետ ինչ կուզենանք կանենք
+//        flatMap() -  Մեթոդ է, որը վերադարձնում է ասոցատիվ զանգված, որի էլեմենտների հետ ինչ կուզենանք կանենք
+//        flatten() -  Մեթոդ է, որը վերադարձնում է ասոցատիվ զանգված, որի էլեմենտները ուղղակի դասավորվել են հերտականությամբ, եթե զանգվածի մեջ լինի մեկ այլ զանգված դա նույնպես կդառնա հասարակ ասոցատիվ զանգված։ մեջը արգումենտ փոխանցելով կարող ենք որոշոլ թե ինչ խորության վրա աշխատի այն
+//        flip() -  Մեթոդ է, որը վերադարձնում է ասոցատիվ զանգված, որի էլեմենտները տեղերով փոխված են այսինքն key -երը value - ների value - ները key -երի
+//        forget() -  Մեթոդ է, որը վերադարձնում է նույն collection -ը, որտեղ նշված key-ը ջնջվաշ է
+//        forPage() -  Մեթոդ է, որը վերադարձնում է զանգված, որի առաջին արգումենտը՝ թե որ էջն է, իսկ երկրրորդը՝ թե ամեն էջի մեջ քանի էլեմենտ լինի
+//        get() -  Մեթոդ է, որը վերադարձնում է collection - ի  key - ի value-ն, ոչ թե ամբողջությամբ, այլ միայն value-ն
+//        groupBy() -  Մեթոդ է, որը վերադարձնում է collection - ի էլեմենտները հավաքված մեկ տեղ ըստ մեր նշված պարամետրների
+//        has() -  Մեթոդ է, որը շատ նման է contain մեթոդին, բայց ի տարբերություն նրա, սա ման է գալիս ըստ key - երի, եթե փոխանցենք զանգված և փնտրենք միքանի key - եր ապա կվերադարձնի true եթե գտնի բոլոր նշված key - երը
+//        hasAny() -  Մեթոդ է, որը շատ նման է hes մեթոդին, բայց ի տարբերություն նրա, սա ման  վերադարձնում է  true եթե գտնի key - երից որևէ մեկը
+//        implode() -  Մեթոդ է, որը միացնում է մեր կոմից նշված value - ները ըստ մեր կողմից նշված նշանի և վեևադարձնում է string
+//        intersect() -  Մեթոդ է, որը diff() - մեթոդի հակառակն է անում, այսինքն վերադարձնում է զանգված, որի մեջ ցույց է տալիս տե առաջին և երկրրերդ զանգվածների մեջ ինչ ընդանուր էլեմենտներ կան
+//        isEmpty() -  Մեթոդ է, որը ստուգում է թե արդյոք collection -ը դատարկ է թե չե, եթե դատարկ է ՝ ապա վերադարձնում է true
+//        isNotEmpty() -  Մեթոդ է, որը ստուգում է թե արդյոք collection -ը դատարկ է թե չե, եթե դատարկ չէ ՝ ապա վերադարձնում է true
+//        join() -  Մեթոդ է, որը նույն implode մեթոդի նաման է աշխատում, բայց ի տարբերություն նրա, եստեղ կարող ենք ընտրել, թե նախավերջին կամ վերջին էլեմենտները ինչով առանձնանան
+//        keyBy() -  Մեթոդ է, որը collection -ններն ավելացնում է key, ըստ մեր տված արժեքի
+//        keys() -  Մեթոդ է, որը collection -ններն ավելացնում է key
+//        lazy() -  Մեթոդ է, որը collection -նները վերածում է lazyCollection - ի, իս դա իր հերթին նախատեսված է մեծ տվյալների հետ աշխատելու համար, քանի որ քիչ հիշողություն է զբաղեցնում
+//        macro() -  Մեթոդ է, որը թույլ է տալիս ստեղծել մեր ուզած մեթոդը, և գրել պետկ է app->Providers->AppServiceProvider->boot() մեթոդում, որովհետև երբ ծրագիրը միանումէ առաջինը աշխատում է սա
     }
 }
